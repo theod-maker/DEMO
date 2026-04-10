@@ -1,0 +1,98 @@
+{
+  "profile": {
+    "firstName": "[Prénom]",
+    "lastName": "[Nom]",
+    "initials": "PN",
+    "title": "[Votre Profession / Spécialité]",
+    "bio": [
+      "[Décrivez ici votre parcours, votre passion et ce qui vous motive dans votre travail.]",
+      "[Ajoutez un deuxième paragraphe sur vos objectifs professionnels ou vos valeurs.]"
+    ],
+    "cvUrl": "/cv.pdf",
+    "location": "[Ville, Pays]"
+  },
+  "contact": {
+    "email": "votre@email.com",
+    "linkedin": "https://linkedin.com/in/votre-profil"
+  },
+  "skills": [
+    {
+      "title": "Catégorie 1",
+      "items": ["Compétence A", "Compétence B", "Compétence C", "Compétence D"]
+    },
+    {
+      "title": "Catégorie 2",
+      "items": ["Compétence E", "Compétence F", "Compétence G", "Compétence H"]
+    },
+    {
+      "title": "Catégorie 3",
+      "items": ["Compétence I", "Compétence J", "Compétence K", "Compétence L"]
+    },
+    {
+      "title": "Catégorie 4",
+      "items": ["Compétence M", "Compétence N", "Compétence O", "Compétence P"]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Titre du Projet 1",
+      "category": "Catégorie du Projet",
+      "description": "Description courte du projet : contexte, objectif, ce qui a été réalisé.",
+      "tags": ["Outil 1", "Outil 2"],
+      "bg": "#1a1a1a"
+    },
+    {
+      "id": 2,
+      "title": "Titre du Projet 2",
+      "category": "Catégorie du Projet",
+      "description": "Description courte du projet : contexte, objectif, ce qui a été réalisé.",
+      "tags": ["Outil 3", "Outil 4"],
+      "bg": "#181818"
+    },
+    {
+      "id": 3,
+      "title": "Titre du Projet 3",
+      "category": "Catégorie du Projet",
+      "description": "Description courte du projet : contexte, objectif, ce qui a été réalisé.",
+      "tags": ["Outil 5", "Outil 6"],
+      "bg": "#1c1c1c"
+    },
+    {
+      "id": 4,
+      "title": "Titre du Projet 4",
+      "category": "Catégorie du Projet",
+      "description": "Description courte du projet : contexte, objectif, ce qui a été réalisé.",
+      "tags": ["Outil 7", "Outil 8"],
+      "bg": "#191919"
+    }
+  ],
+  "experience": [
+    {
+      "year": "20XX — Présent",
+      "type": "Formation",
+      "title": "Nom du diplôme",
+      "place": "École / Université",
+      "description": "Description de la formation, spécialités, points forts."
+    },
+    {
+      "year": "20XX — 20XX",
+      "type": "Formation",
+      "title": "Diplôme précédent",
+      "place": "École / Université",
+      "description": "Description succincte."
+    },
+    {
+      "year": "20XX",
+      "type": "Expérience",
+      "title": "Poste occupé",
+      "place": "Nom de l'entreprise",
+      "description": "Missions effectuées, compétences acquises, réalisations."
+    }
+  ],
+  "stats": [
+    { "label": "Projets réalisés", "value": "0+" },
+    { "label": "Ans d'expérience", "value": "0" },
+    { "label": "Outils maîtrisés", "value": "0+" }
+  ]
+}
