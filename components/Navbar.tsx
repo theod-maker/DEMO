@@ -3,18 +3,20 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import data from "../data.json";
+import { useTab, type TabId } from "@/context/TabContext";
 
-const links = [
-  { label: "À propos", href: "#about" },
-  { label: "Compétences", href: "#skills" },
-  { label: "Projets", href: "#projects" },
-  { label: "Formation", href: "#education" },
-  { label: "Contact", href: "#contact" },
+const TABS: { label: string; id: TabId }[] = [
+  { label: "À propos", id: "about" },
+  { label: "Compétences", id: "skills" },
+  { label: "Projets", id: "projects" },
+  { label: "Formation", id: "education" },
+  { label: "Contact", id: "contact" },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { activeTab, setActiveTab } = useTab();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -34,27 +36,46 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
       >
-        <a href="#hero" className="text-xs font-bold tracking-[0.2em] uppercase text-[#f0f0f0]">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="text-xs font-bold tracking-[0.2em] uppercase text-[#f0f0f0]"
+        >
           {data.profile.initials}
-        </a>
+        </button>
 
-        <ul className="hidden md:flex items-center gap-8">
-          {links.map((link, i) => (
+        <ul className="hidden md:flex items-center gap-1">
+          {TABS.map((tab, i) => (
             <motion.li
-              key={link.href}
+              key={tab.id}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 + i * 0.07, duration: 0.4 }}
             >
-              <a href={link.href} className="text-xs tracking-wide text-[#555555] hover:text-[#f0f0f0] transition-colors duration-200">
-                {link.label}
-              </a>
+              <button
+                onClick={() => setActiveTab(tab.id)}
+                className="relative px-4 py-2 text-xs tracking-wide transition-colors duration-200"
+              >
+                {activeTab === tab.id && (
+                  <motion.span
+                    layoutId="tab-pill"
+                    className="absolute inset-0 rounded-full bg-[#1e1e1e]"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span
+                  className={`relative z-10 transition-colors duration-200 ${
+                    activeTab === tab.id ? "text-[#f0f0f0]" : "text-[#555555]"
+                  }`}
+                >
+                  {tab.label}
+                </span>
+              </button>
             </motion.li>
           ))}
         </ul>
 
-        <motion.a
-          href="#contact"
+        <motion.button
+          onClick={() => setActiveTab("contact")}
           className="hidden md:inline-flex items-center border border-[#2a2a2a] text-[#f0f0f0] px-5 py-2 rounded-full text-xs font-medium tracking-wide hover:bg-[#f0f0f0] hover:text-[#0e0e0e] transition-colors duration-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -63,12 +84,28 @@ export function Navbar() {
           whileTap={{ scale: 0.97 }}
         >
           Me contacter
-        </motion.a>
+        </motion.button>
 
-        <button className="md:hidden flex flex-col gap-1.5 p-1" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
-          <motion.span className="block w-5 h-px bg-[#f0f0f0]" animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }} transition={{ duration: 0.25 }} />
-          <motion.span className="block w-5 h-px bg-[#f0f0f0]" animate={menuOpen ? { opacity: 0, x: -4 } : { opacity: 1, x: 0 }} transition={{ duration: 0.25 }} />
-          <motion.span className="block w-5 h-px bg-[#f0f0f0]" animate={menuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }} transition={{ duration: 0.25 }} />
+        <button
+          className="md:hidden flex flex-col gap-1.5 p-1"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menu"
+        >
+          <motion.span
+            className="block w-5 h-px bg-[#f0f0f0]"
+            animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+            transition={{ duration: 0.25 }}
+          />
+          <motion.span
+            className="block w-5 h-px bg-[#f0f0f0]"
+            animate={menuOpen ? { opacity: 0, x: -4 } : { opacity: 1, x: 0 }}
+            transition={{ duration: 0.25 }}
+          />
+          <motion.span
+            className="block w-5 h-px bg-[#f0f0f0]"
+            animate={menuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+            transition={{ duration: 0.25 }}
+          />
         </button>
       </motion.nav>
 
@@ -82,11 +119,19 @@ export function Navbar() {
             transition={{ duration: 0.2 }}
           >
             <ul className="flex flex-col gap-5">
-              {links.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className="text-sm text-[#555555] hover:text-[#f0f0f0] transition-colors" onClick={() => setMenuOpen(false)}>
-                    {link.label}
-                  </a>
+              {TABS.map((tab) => (
+                <li key={tab.id}>
+                  <button
+                    onClick={() => {
+                      setActiveTab(tab.id);
+                      setMenuOpen(false);
+                    }}
+                    className={`text-sm transition-colors ${
+                      activeTab === tab.id ? "text-[#f0f0f0]" : "text-[#555555] hover:text-[#f0f0f0]"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
                 </li>
               ))}
             </ul>
