@@ -3,15 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import data from "../data.json";
-import { useTab, type TabId } from "@/context/TabContext";
-
-const TABS: { label: string; id: TabId }[] = [
-  { label: "À propos", id: "about" },
-  { label: "Compétences", id: "skills" },
-  { label: "Projets", id: "projects" },
-  { label: "Formation", id: "education" },
-  { label: "Contact", id: "contact" },
-];
+import { useTab } from "@/context/TabContext";
+import { TABS_CONFIG } from "@/config/tabs.config";
+import { EASE_OUT_EXPO } from "@/components/animations";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -34,7 +28,7 @@ export function Navbar() {
         }`}
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+        transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.4 }}
       >
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -44,7 +38,7 @@ export function Navbar() {
         </button>
 
         <ul className="hidden md:flex items-center gap-1">
-          {TABS.map((tab, i) => (
+          {TABS_CONFIG.map((tab, i) => (
             <motion.li
               key={tab.id}
               initial={{ opacity: 0, y: -8 }}
@@ -119,7 +113,7 @@ export function Navbar() {
             transition={{ duration: 0.2 }}
           >
             <ul className="flex flex-col gap-5">
-              {TABS.map((tab) => (
+              {TABS_CONFIG.map((tab) => (
                 <li key={tab.id}>
                   <button
                     onClick={() => {

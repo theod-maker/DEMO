@@ -3,6 +3,8 @@
 import { motion, useInView, type Variants } from "framer-motion";
 import { useRef } from "react";
 
+export const EASE_OUT_EXPO = [0.22, 1, 0.36, 1] as const;
+
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
